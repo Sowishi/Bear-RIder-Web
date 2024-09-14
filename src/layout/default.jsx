@@ -1,9 +1,12 @@
-import Header from "../components/header";
+import { FooterComponent } from "../components/footer";
+import { Header } from "../components/header";
 
-const Default = () => {
+const Default = ({ children }) => {
   return (
-    <div className="mx-auto w-full min-h-screen">
+    <div className="mx-auto w-full min-h-screen ">
       <Header />
+      {children}
+      <FooterComponent />
     </div>
   );
 };

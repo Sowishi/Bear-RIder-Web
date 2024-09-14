@@ -1,18 +1,29 @@
-import { Button } from "flowbite-react";
+"use client";
+
+import { Button, Navbar } from "flowbite-react";
 import logo from "../assets/LOGO 1 (1).png";
 
-const Header = () => {
+export function Header() {
   return (
-    <div className="container mx-auto p-3 flex items-center justify-between">
-      <img src={logo} alt="" />
-      <div className="buttons flex w-[30rem] justify-between items-center">
-        <h1 className="font-bold text-lg">Home</h1>
-        <h1 className="text-lg">About Us</h1>
-        <h1 className="text-lg">Contact Us</h1>
+    <Navbar fluid rounded className="lg:mx-20 lg:my-3">
+      <Navbar.Brand href="https://flowbite-react.com">
+        <img
+          src={logo}
+          className="mr-3 h-6 sm:h-9 lg:h-14"
+          alt="Flowbite React Logo"
+        />
+      </Navbar.Brand>
+      <div className="flex md:order-2">
         <Button color={"failure"}>Become a rider</Button>
+        <Navbar.Toggle />
       </div>
-    </div>
+      <Navbar.Collapse>
+        <Navbar.Link href="#" active>
+          Home
+        </Navbar.Link>
+        <Navbar.Link href="#">About Us</Navbar.Link>
+        <Navbar.Link href="#">Contact Us</Navbar.Link>
+      </Navbar.Collapse>
+    </Navbar>
   );
-};
-
-export default Header;
+}

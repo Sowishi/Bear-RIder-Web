@@ -1,8 +1,11 @@
-import { Button } from "flowbite-react";
-import Default from "./layout/default";
+import LandingPage from "./pages/landing";
 
 const App = () => {
-  return <Default></Default>;
+  return (
+    <>
+      <LandingPage />
+    </>
+  );
 };
 
 export default App;
