@@ -21,7 +21,7 @@ const LandingPage = () => {
       <div className="service flex justify-center items-center h-[30vh] md:h-[50vh] lg:h-[80vh] mt-20">
         <img src={service} className="w-[25rem] lg:w-[40rem]" alt="" />
       </div>
-      <div className="wrapper flex container mx-auto flex-wrap px-10 mt-20">
+      <div className="wrapper flex container mx-auto flex-wrap px-10 my-20 py-20">
         <div className="basis-12/12 lg:basis-6/12 flex justify-center">
           <img src={phone} alt="" />
         </div>

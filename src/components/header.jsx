@@ -9,20 +9,35 @@ export function Header() {
       <Navbar.Brand href="https://flowbite-react.com">
         <img
           src={logo}
-          className="mr-3 h-6 sm:h-9 lg:h-14"
+          className="mr-3 h-9 sm:h-9 lg:h-14"
           alt="Flowbite React Logo"
         />
       </Navbar.Brand>
       <div className="flex md:order-2">
-        <Button color={"failure"}>Become a rider</Button>
+        <Button className="mr-3" color={"failure"}>
+          Become a rider
+        </Button>
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse>
-        <Navbar.Link href="#" active>
+      <Navbar.Collapse theme={"failure"}>
+        <Navbar.Link
+          className="hover:bg-red-500 hover:text-white text-lg"
+          href="#"
+        >
           Home
         </Navbar.Link>
-        <Navbar.Link href="#">About Us</Navbar.Link>
-        <Navbar.Link href="#">Contact Us</Navbar.Link>
+        <Navbar.Link
+          className="hover:bg-red-500 hover:text-white text-lg"
+          href="#"
+        >
+          About Us
+        </Navbar.Link>
+        <Navbar.Link
+          className="hover:bg-red-500 hover:text-white text-lg"
+          href="#"
+        >
+          Contact Us
+        </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
