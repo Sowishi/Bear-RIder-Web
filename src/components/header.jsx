@@ -2,6 +2,7 @@
 
 import { Button, Navbar } from "flowbite-react";
 import logo from "../assets/LOGO 1 (1).png";
+import { Link } from "react-router-dom";
 
 export function Header() {
   return (
@@ -17,18 +18,24 @@ export function Header() {
         <Button className="mr-3" color={"failure"}>
           Become a rider
         </Button>
+        <Link to={"/login"}>
+          <Button className="mr-3" color={"dark"}>
+            Admin Login
+          </Button>
+        </Link>
+
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse theme={"failure"}>
         <Navbar.Link
           className="hover:bg-red-500 hover:text-white text-lg"
-          href="#"
+          href="/"
         >
           Home
         </Navbar.Link>
         <Navbar.Link
           className="hover:bg-red-500 hover:text-white text-lg"
-          href="#"
+          href="/about"
         >
           About Us
         </Navbar.Link>

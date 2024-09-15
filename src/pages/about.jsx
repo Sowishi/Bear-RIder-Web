@@ -12,7 +12,7 @@ import img2 from "../assets/Group 103.png";
 const AboutPage = () => {
   return (
     <Default>
-      <div className="border border-red-500 w-full h-[30vh] md:h-[50vh] lg:h-[70vh] flex justify-center items-center flex-col">
+      <div className="w-full h-[30vh] md:h-[50vh] lg:h-[70vh] flex justify-center items-center flex-col">
         <div>
           <h1 className="text-2xl lg:text-3xl w-12/12 lg:w-5/12 m-20 font-bold">
             Our mission is to deliver exceptional service, driven by innovation
@@ -38,7 +38,7 @@ const AboutPage = () => {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
-        className="border border-red-500 w-full h-[30vh] md:h-[50vh] lg:h-[130vh] flex justify-end items-center flex-col"
+        className="w-full h-[30vh] md:h-[50vh] lg:h-[130vh] flex justify-end items-center flex-col"
       >
         <img className="px-5" src={service} alt="" />
       </div>
