@@ -11,18 +11,20 @@ import {
 import logo from "../assets/LOGO 1 (1).png";
 import cta from "../assets/CTA.png";
 
-export function FooterComponent() {
+export function FooterComponent({ hide }) {
   return (
     <>
-      <div
-        className="landing w-full h-[30vh] md:h-[50vh] lg:h-[80vh]"
-        style={{
-          backgroundImage: `url(${cta})`, // Using the imported image
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      ></div>
+      {!hide && (
+        <div
+          className="landing w-full h-[30vh] md:h-[50vh] lg:h-[80vh]"
+          style={{
+            backgroundImage: `url(${cta})`, // Using the imported image
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
+      )}
       <Footer container>
         <div className="container mx-auto">
           <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
