@@ -11,7 +11,9 @@ export function BearDrawer({ open, handleClose }) {
         <Drawer.Header title="Menu" className="mb-10" />
         <Drawer.Items>
           <div className="wrapper bg-red-200 p-3 rounded-lg my-3">
-            <h1 className="font-bold">Dashboard</h1>
+            <Link to={"/admin-dashboard"}>
+              <h1 className="font-bold">Dashboard</h1>
+            </Link>{" "}
           </div>
           <div className="wrapper bg-yellow-200 p-3 rounded-lg my-3">
             <Link to={"/admin-user"}>

@@ -5,6 +5,7 @@ import Login from "./pages/login";
 import AdminUser from "./pages/admin-user";
 import AdminRider from "./pages/admin-rider";
 import AdminTransaction from "./pages/admin-transcation";
+import AdminDashboard from "./pages/admin-dashboard";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Route path="/admin-user" element={<AdminUser />} />
       <Route path="/admin-rider" element={<AdminRider />} />
       <Route path="/admin-transaction" element={<AdminTransaction />} />
+      <Route path="/admin-dashboard" element={<AdminDashboard />} />
     </Routes>
   );
 };
