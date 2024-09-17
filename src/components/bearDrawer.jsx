@@ -2,6 +2,7 @@
 
 import { Button, Drawer } from "flowbite-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function BearDrawer({ open, handleClose }) {
   return (
@@ -13,11 +14,19 @@ export function BearDrawer({ open, handleClose }) {
             <h1 className="font-bold">Dashboard</h1>
           </div>
           <div className="wrapper bg-yellow-200 p-3 rounded-lg my-3">
-            <h1 className="font-bold">Transaction</h1>
+            <Link to={"/admin-user"}>
+              <h1 className="font-bold">User Management</h1>
+            </Link>
           </div>
           <div className="wrapper bg-yellow-200 p-3 rounded-lg my-3">
-            <h1 className="font-bold">User Management</h1>
+            <Link to={"/admin-rider"}>
+              <h1 className="font-bold">Rider Management</h1>
+            </Link>{" "}
           </div>
+          <div className="wrapper bg-yellow-200 p-3 rounded-lg my-3">
+            <h1 className="font-bold">Transaction</h1>
+          </div>
+
           <div className="wrapper bg-yellow-200 p-3 rounded-lg my-3">
             <h1 className="font-bold">View Site</h1>
           </div>
