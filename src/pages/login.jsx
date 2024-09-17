@@ -9,7 +9,7 @@ const Login = () => {
         <div className="hidden basis-6/12 lg:flex justify-center items-center">
           <img width={500} src={logo} alt="Flowbite React Logo" />
         </div>
-        <div className="basis-full lg:basis-6/12 flex justify-center items-center ">
+        <div className="basis-full lg:basis-6/12 flex justify-center items-center">
           <LoginForm />
         </div>
       </div>
