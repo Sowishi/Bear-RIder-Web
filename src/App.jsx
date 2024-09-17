@@ -4,6 +4,7 @@ import AboutPage from "./pages/about";
 import Login from "./pages/login";
 import AdminUser from "./pages/admin-user";
 import AdminRider from "./pages/admin-rider";
+import AdminTransaction from "./pages/admin-transcation";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/admin-user" element={<AdminUser />} />
       <Route path="/admin-rider" element={<AdminRider />} />
+      <Route path="/admin-transaction" element={<AdminTransaction />} />
     </Routes>
   );
 };

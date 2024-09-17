@@ -24,7 +24,9 @@ export function BearDrawer({ open, handleClose }) {
             </Link>{" "}
           </div>
           <div className="wrapper bg-yellow-200 p-3 rounded-lg my-3">
-            <h1 className="font-bold">Transaction</h1>
+            <Link to={"/admin-transaction"}>
+              <h1 className="font-bold">Transactions</h1>
+            </Link>{" "}
           </div>
 
           <div className="wrapper bg-yellow-200 p-3 rounded-lg my-3">
