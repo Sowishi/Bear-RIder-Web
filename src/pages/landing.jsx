@@ -1,4 +1,4 @@
-import Default from "../layout/default";
+import DefaultLayout from "../layout/default";
 import landing from "../assets/landing.png";
 import service from "../assets/SERVICES.png";
 
@@ -8,7 +8,7 @@ import { Button, List } from "flowbite-react";
 
 const LandingPage = () => {
   return (
-    <Default>
+    <DefaultLayout>
       <div
         className="landing w-full h-[30vh] md:h-[50vh] lg:h-[80vh]"
         style={{
@@ -51,7 +51,7 @@ const LandingPage = () => {
       <div className="service flex justify-center items-center mt-10 h-[30vh] md:h-[50vh] lg:h-[80vh] my-20">
         <img src={feature} alt="" />
       </div>
-    </Default>
+    </DefaultLayout>
   );
 };
 

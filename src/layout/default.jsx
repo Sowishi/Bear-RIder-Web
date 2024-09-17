@@ -1,7 +1,7 @@
 import { FooterComponent } from "../components/footer";
 import { Header } from "../components/header";
 
-const Default = ({ children }) => {
+const DefaultLayout = ({ children }) => {
   return (
     <div className="mx-auto w-full min-h-screen ">
       <Header />
@@ -11,4 +11,4 @@ const Default = ({ children }) => {
   );
 };
 
-export default Default;
+export default DefaultLayout;

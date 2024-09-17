@@ -1,4 +1,4 @@
-import Default from "../layout/default";
+import DefaultLayout from "../layout/default";
 import landing from "../assets/landing.png";
 
 import phone from "../assets/4-removebg-preview (1) 1.png";
@@ -11,7 +11,7 @@ import img2 from "../assets/Group 103.png";
 
 const AboutPage = () => {
   return (
-    <Default>
+    <DefaultLayout>
       <div className="w-full h-[30vh] md:h-[50vh] lg:h-[70vh] flex justify-center items-center flex-col">
         <div>
           <h1 className="text-2xl lg:text-3xl w-12/12 lg:w-5/12 m-20 font-bold">
@@ -45,7 +45,7 @@ const AboutPage = () => {
       <div className="service flex justify-center items-center mt-10 h-[30vh] md:h-[50vh] lg:h-[100vh] my-20">
         <img className="p-20" src={img2} alt="" />
       </div>
-    </Default>
+    </DefaultLayout>
   );
 };
 
