@@ -1,11 +1,15 @@
 "use client";
 
-import { Button, Table } from "flowbite-react";
+import { Badge, Button, Table } from "flowbite-react";
 import useCrudUsers from "../hooks/useCrudUsers";
 import moment from "moment";
+import BearModal from "./bearModal";
+import { useState } from "react";
 
 export function RiderTable() {
   const { data } = useCrudUsers();
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const filterData = data.filter((item) => {
     if (item.role == "Rider") {
@@ -13,8 +17,25 @@ export function RiderTable() {
     }
   });
 
+  const getStatusColor = (status) => {
+    if (status == "Verified") {
+      return "success";
+    }
+
+    if (status == "Pending") {
+      return "info";
+    }
+  };
+
   return (
     <div className="overflow-x-auto shadow-xl">
+      {selectedUser && (
+        <BearModal
+          user={selectedUser}
+          openModal={openModal}
+          handleClose={() => setOpenModal(false)}
+        />
+      )}
       <Table striped>
         <Table.Head>
           <Table.HeadCell>Profile Picture</Table.HeadCell>
@@ -22,7 +43,7 @@ export function RiderTable() {
           <Table.HeadCell>Email</Table.HeadCell>
           <Table.HeadCell>Phone Number</Table.HeadCell>
           <Table.HeadCell>Date Join</Table.HeadCell>
-          <Table.HeadCell>Role</Table.HeadCell>
+          <Table.HeadCell>Status</Table.HeadCell>
           <Table.HeadCell>Action</Table.HeadCell>
 
           <Table.HeadCell>
@@ -36,19 +57,35 @@ export function RiderTable() {
             return (
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <Table.Cell>
-                  <img width={50} src={user.profilePic} />
+                  <img
+                    style={{ borderRadius: "100%", width: 50, height: 50 }}
+                    src={user.selfieUrl}
+                  />
                 </Table.Cell>
-                <Table.Cell className="text-lg">
-                  {user.firstName + " " + user.lastName}
-                </Table.Cell>
+                <Table.Cell className="text-lg">{user.fullName}</Table.Cell>
                 <Table.Cell className="text-lg">{user.email}</Table.Cell>{" "}
                 <Table.Cell className="text-lg">{user.phoneNumber}</Table.Cell>{" "}
                 <Table.Cell className="text-lg">{date}</Table.Cell>{" "}
                 <Table.Cell className="text-lg">
-                  {user.role ? user.role : "Customer"}
+                  <Badge
+                    color={getStatusColor(
+                      user.status ? user.status : "Pending"
+                    )}
+                  >
+                    {user.status ? user.status : "Pending"}
+                  </Badge>
                 </Table.Cell>{" "}
-                <Table.Cell className="text-lg">
+                <Table.Cell className="text-lg flex items-center justify-start">
                   <Button className="bg-red-500">Delete</Button>
+                  <Button
+                    className="bg-blue-500 ml-3"
+                    onClick={() => {
+                      setSelectedUser(user);
+                      setOpenModal(true);
+                    }}
+                  >
+                    View Rider
+                  </Button>
                 </Table.Cell>
               </Table.Row>
             );
