@@ -5,7 +5,7 @@ import useCrudUsers from "../hooks/useCrudUsers";
 import moment from "moment";
 
 export function UserTable() {
-  const { data } = useCrudUsers();
+  const { data, deleteUser } = useCrudUsers();
 
   const filterData = data.filter((item) => {
     if (item.role !== "Rider") {
@@ -48,7 +48,12 @@ export function UserTable() {
                   {user.role ? user.role : "Customer"}
                 </Table.Cell>{" "}
                 <Table.Cell className="text-lg">
-                  <Button className="bg-red-500">Delete</Button>
+                  <Button
+                    onClick={() => deleteUser(user.id)}
+                    className="bg-red-500"
+                  >
+                    Delete
+                  </Button>
                 </Table.Cell>
               </Table.Row>
             );

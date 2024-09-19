@@ -6,7 +6,7 @@ import moment from "moment";
 import useCrudTransactions from "../hooks/useCrudTransaction";
 
 export function TransactionTable() {
-  const { data } = useCrudTransactions();
+  const { data, deleteTransaction } = useCrudTransactions();
 
   const filterData = data.filter((item) => {
     if (item.role !== "Rider") {
@@ -77,11 +77,11 @@ export function TransactionTable() {
                   <div className="wrapper flex items-center justify-start">
                     <img
                       className="mr-3"
-                      width={50}
-                      src={rider?.profilePic}
+                      style={{ width: 50, height: 50, borderRadius: 100 }}
+                      src={rider?.selfieUrl}
                       alt=""
                     />
-                    {rider?.firstName + " " + rider?.lastName}
+                    {rider?.fullName}
                   </div>
                 </Table.Cell>
                 <Table.Cell className="text-lg">{item.distance} km</Table.Cell>
@@ -94,7 +94,12 @@ export function TransactionTable() {
                   </Badge>
                 </Table.Cell>
                 <Table.Cell className="text-lg">
-                  <Button color={"failure"}>Delete</Button>
+                  <Button
+                    onClick={() => deleteTransaction(item.id)}
+                    color={"failure"}
+                  >
+                    Delete
+                  </Button>
                 </Table.Cell>
               </Table.Row>
             );

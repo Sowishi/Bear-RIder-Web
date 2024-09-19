@@ -7,7 +7,7 @@ import BearModal from "./bearModal";
 import { useState } from "react";
 
 export function RiderTable() {
-  const { data } = useCrudUsers();
+  const { data, acceptRider, deleteUser } = useCrudUsers();
   const [openModal, setOpenModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -31,6 +31,7 @@ export function RiderTable() {
     <div className="overflow-x-auto shadow-xl">
       {selectedUser && (
         <BearModal
+          acceptRider={acceptRider}
           user={selectedUser}
           openModal={openModal}
           handleClose={() => setOpenModal(false)}
@@ -67,16 +68,17 @@ export function RiderTable() {
                 <Table.Cell className="text-lg">{user.phoneNumber}</Table.Cell>{" "}
                 <Table.Cell className="text-lg">{date}</Table.Cell>{" "}
                 <Table.Cell className="text-lg">
-                  <Badge
-                    color={getStatusColor(
-                      user.status ? user.status : "Pending"
-                    )}
-                  >
-                    {user.status ? user.status : "Pending"}
+                  <Badge color={getStatusColor(user.riderStatus)}>
+                    {user.riderStatus}
                   </Badge>
                 </Table.Cell>{" "}
                 <Table.Cell className="text-lg flex items-center justify-start">
-                  <Button className="bg-red-500">Delete</Button>
+                  <Button
+                    onClick={() => deleteUser(user.id)}
+                    className="bg-red-500"
+                  >
+                    Delete
+                  </Button>
                   <Button
                     className="bg-blue-500 ml-3"
                     onClick={() => {

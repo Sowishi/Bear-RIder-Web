@@ -4,7 +4,12 @@ import { Button, ListGroup, Modal } from "flowbite-react";
 import moment from "moment";
 import { useState } from "react";
 
-export default function BearModal({ openModal, handleClose, user }) {
+export default function BearModal({
+  openModal,
+  handleClose,
+  user,
+  acceptRider,
+}) {
   const firebaseDate = user.createdAt.toDate();
   const date = moment(firebaseDate).format("LLL");
   return (
@@ -15,7 +20,12 @@ export default function BearModal({ openModal, handleClose, user }) {
           <Modal.Body>
             <div className="container mx-auto flex items-center justify-center flex-col">
               <img
-                style={{ borderRadius: "100%", width: 200, height: 200 }}
+                style={{
+                  borderRadius: "100%",
+                  width: 200,
+                  height: 200,
+                  objectFit: "cover",
+                }}
                 src={user.selfieUrl}
               />{" "}
               <div className="div">
@@ -31,15 +41,24 @@ export default function BearModal({ openModal, handleClose, user }) {
                 <div className="w-full">
                   <h1 className="font-bold text-3xl text-left ">Documents</h1>
                 </div>
-                <img
-                  style={{ width: 200, height: 200 }}
-                  src={user.licenseUrl}
-                />
+                <a href={user.licenseUrl} target="_blank">
+                  <img
+                    style={{ width: 200, height: 200 }}
+                    src={user.licenseUrl}
+                  />
+                </a>
               </div>
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => setOpenModal(false)}>Accept Rider</Button>
+            <Button
+              onClick={() => {
+                acceptRider(user.id);
+                handleClose();
+              }}
+            >
+              Accept Rider
+            </Button>
             <Button color="gray" onClick={handleClose}>
               Decline
             </Button>

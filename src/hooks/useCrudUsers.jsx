@@ -1,4 +1,12 @@
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 
@@ -17,7 +25,19 @@ const useCrudUsers = () => {
     });
   }, []);
 
-  return { data };
+  const acceptRider = (id) => {
+    const docRef = doc(db, "users", id);
+    updateDoc(docRef, { riderStatus: "Verified" });
+    console.log("dlkj");
+  };
+
+  const deleteUser = (id) => {
+    const docRef = doc(db, "users", id);
+    deleteDoc(docRef);
+    console.log("dlkj");
+  };
+
+  return { data, acceptRider, deleteUser };
 };
 
 export default useCrudUsers;
