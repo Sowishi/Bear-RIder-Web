@@ -74,23 +74,25 @@ export function TransactionTable() {
                   </div>
                 </Table.Cell>{" "}
                 <Table.Cell className="text-lg">
-                  <div className="wrapper flex items-center justify-start">
-                    <img
-                      className="mr-3"
-                      style={{ width: 50, height: 50, borderRadius: 100 }}
-                      src={rider?.selfieUrl}
-                      alt=""
-                    />
-                    {rider?.fullName}
-                  </div>
+                  {rider && (
+                    <div className="wrapper flex items-center justify-start">
+                      <img
+                        className="mr-3"
+                        style={{ width: 50, height: 50, borderRadius: 100 }}
+                        src={rider?.selfieUrl}
+                        alt=""
+                      />
+                      {rider?.fullName}
+                    </div>
+                  )}
+                  {!rider && "No Rider Yet"}
                 </Table.Cell>
                 <Table.Cell className="text-lg">{item.distance} km</Table.Cell>
                 <Table.Cell className="text-lg">{date}</Table.Cell>
                 <Table.Cell className="text-lg"> ₱{item.totalPrice}</Table.Cell>
                 <Table.Cell className="text-lg">
-                  {" "}
                   <Badge color={getStatusColor(item.status)}>
-                    {item.status}
+                    {item.status ? item.status : "Pending"}
                   </Badge>
                 </Table.Cell>
                 <Table.Cell className="text-lg">

@@ -32,10 +32,14 @@ export function BearDrawer({ open, handleClose }) {
           </div>
 
           <div className="wrapper bg-yellow-200 p-3 rounded-lg my-3">
-            <h1 className="font-bold">View Site</h1>
+            <Link to={"/"}>
+              <h1 className="font-bold">View Site</h1>
+            </Link>{" "}
           </div>
           <div className="wrapper bg-yellow-200 p-3 rounded-lg my-3">
-            <h1 className="font-bold">Log out</h1>
+            <Link to={"/"}>
+              <h1 className="font-bold">Log out</h1>
+            </Link>{" "}
           </div>
         </Drawer.Items>
       </Drawer>
