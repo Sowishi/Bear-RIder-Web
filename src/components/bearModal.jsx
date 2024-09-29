@@ -52,6 +52,7 @@ export default function BearModal({
           </Modal.Body>
           <Modal.Footer>
             <Button
+              color={"success"}
               onClick={() => {
                 acceptRider(user.id);
                 handleClose();
@@ -60,7 +61,7 @@ export default function BearModal({
               Accept Rider
             </Button>
             <Button color="gray" onClick={handleClose}>
-              Decline
+              Cancel
             </Button>
           </Modal.Footer>
         </Modal>

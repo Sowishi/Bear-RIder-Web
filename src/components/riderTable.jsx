@@ -5,9 +5,11 @@ import useCrudUsers from "../hooks/useCrudUsers";
 import moment from "moment";
 import BearModal from "./bearModal";
 import { useState } from "react";
+import { HiEye, HiTrash } from "react-icons/hi";
+import { HiBan } from "react-icons/hi";
 
 export function RiderTable({ search }) {
-  const { data, acceptRider, deleteUser } = useCrudUsers();
+  const { data, acceptRider, deleteUser, rejectRider } = useCrudUsers();
   const [openModal, setOpenModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -31,6 +33,9 @@ export function RiderTable({ search }) {
 
     if (status == "Pending") {
       return "info";
+    }
+    if (status == "Rejected") {
+      return "failure";
     }
   };
 
@@ -85,6 +90,16 @@ export function RiderTable({ search }) {
                     className="bg-red-500"
                   >
                     Delete
+                    <HiTrash className="ml-2 h-5 w-5" />
+                  </Button>
+
+                  <Button
+                    color={"failure"}
+                    className="ml-3"
+                    onClick={() => rejectRider(user.id)}
+                  >
+                    Reject
+                    <HiBan className="ml-2 h-5 w-5" />
                   </Button>
                   <Button
                     className="bg-blue-500 ml-3"
@@ -93,7 +108,8 @@ export function RiderTable({ search }) {
                       setOpenModal(true);
                     }}
                   >
-                    View Rider
+                    View
+                    <HiEye className="ml-2 h-5 w-5" />
                   </Button>
                 </Table.Cell>
               </Table.Row>

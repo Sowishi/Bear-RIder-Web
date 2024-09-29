@@ -3,6 +3,7 @@
 import { Button, Table } from "flowbite-react";
 import useCrudUsers from "../hooks/useCrudUsers";
 import moment from "moment";
+import { HiTrash } from "react-icons/hi";
 
 export function UserTable({ search }) {
   const { data, deleteUser } = useCrudUsers();
@@ -60,6 +61,7 @@ export function UserTable({ search }) {
                     className="bg-red-500"
                   >
                     Delete
+                    <HiTrash className="ml-2 h-5 w-5" />
                   </Button>
                 </Table.Cell>
               </Table.Row>

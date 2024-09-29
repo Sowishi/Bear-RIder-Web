@@ -28,7 +28,11 @@ const useCrudUsers = () => {
   const acceptRider = (id) => {
     const docRef = doc(db, "users", id);
     updateDoc(docRef, { riderStatus: "Verified" });
-    console.log("dlkj");
+  };
+
+  const rejectRider = (id) => {
+    const docRef = doc(db, "users", id);
+    updateDoc(docRef, { riderStatus: "Rejected" });
   };
 
   const deleteUser = (id) => {
@@ -37,7 +41,7 @@ const useCrudUsers = () => {
     console.log("dlkj");
   };
 
-  return { data, acceptRider, deleteUser };
+  return { data, acceptRider, deleteUser, rejectRider };
 };
 
 export default useCrudUsers;
