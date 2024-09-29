@@ -1,13 +1,17 @@
 "use client";
 
-import { Badge, Button, Table } from "flowbite-react";
+import { Badge, Button, Table, Toast } from "flowbite-react";
 import useCrudUsers from "../hooks/useCrudUsers";
 import moment from "moment";
 import useCrudTransactions from "../hooks/useCrudTransaction";
 import { HiTrash } from "react-icons/hi";
+import { useState } from "react";
+import { ConfirmModal } from "./confirmModal";
 
 export function TransactionTable({ search }) {
   const { data, deleteTransaction } = useCrudTransactions();
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [selected, setSelected] = useState();
 
   const filterData = data.filter((item) => {
     if (item.role !== "Rider") {
@@ -27,8 +31,6 @@ export function TransactionTable({ search }) {
       return user;
     }
   });
-
-  console.log(searchData);
 
   const convertWord = (text) => {
     if (text == "Pahatod") {
@@ -51,6 +53,15 @@ export function TransactionTable({ search }) {
   };
   return (
     <div className="overflow-x-auto shadow-xl">
+      <ConfirmModal
+        onSubmit={() => {
+          deleteTransaction(selected.id);
+          setDeleteModal(false);
+        }}
+        openModal={deleteModal}
+        handleClose={() => setDeleteModal(false)}
+      />
+
       <Table striped>
         <Table.Head>
           <Table.HeadCell>Service Type</Table.HeadCell>
@@ -113,7 +124,10 @@ export function TransactionTable({ search }) {
                 </Table.Cell>
                 <Table.Cell className="text-lg">
                   <Button
-                    onClick={() => deleteTransaction(item.id)}
+                    onClick={() => {
+                      setDeleteModal(true);
+                      setSelected(item);
+                    }}
                     className="bg-red-500"
                   >
                     Delete
