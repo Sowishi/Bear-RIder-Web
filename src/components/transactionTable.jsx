@@ -4,8 +4,9 @@ import { Badge, Button, Table } from "flowbite-react";
 import useCrudUsers from "../hooks/useCrudUsers";
 import moment from "moment";
 import useCrudTransactions from "../hooks/useCrudTransaction";
+import { HiTrash } from "react-icons/hi";
 
-export function TransactionTable() {
+export function TransactionTable({ search }) {
   const { data, deleteTransaction } = useCrudTransactions();
 
   const filterData = data.filter((item) => {
@@ -13,6 +14,21 @@ export function TransactionTable() {
       return item;
     }
   });
+
+  const searchData = filterData.filter((user) => {
+    const fullNameRider = user.rider?.fullName.toLocaleLowerCase();
+    const fullNameUser = (
+      user.currentUser.firstName +
+      " " +
+      user.currentUser.lastName
+    ).toLocaleLowerCase();
+
+    if (fullNameUser.includes(search.toLocaleLowerCase())) {
+      return user;
+    }
+  });
+
+  console.log(searchData);
 
   const convertWord = (text) => {
     if (text == "Pahatod") {
@@ -51,7 +67,7 @@ export function TransactionTable() {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {filterData?.map((item) => {
+          {searchData?.map((item) => {
             const firebasDate = item.createdAt.toDate();
             const date = moment(firebasDate).format("LLL");
             const { currentUser } = item;
@@ -98,9 +114,10 @@ export function TransactionTable() {
                 <Table.Cell className="text-lg">
                   <Button
                     onClick={() => deleteTransaction(item.id)}
-                    color={"failure"}
+                    className="bg-red-500"
                   >
                     Delete
+                    <HiTrash className="ml-2 h-5 w-5" />
                   </Button>
                 </Table.Cell>
               </Table.Row>
