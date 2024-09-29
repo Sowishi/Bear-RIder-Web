@@ -6,7 +6,7 @@ import moment from "moment";
 import BearModal from "./bearModal";
 import { useState } from "react";
 
-export function RiderTable() {
+export function RiderTable({ search }) {
   const { data, acceptRider, deleteUser } = useCrudUsers();
   const [openModal, setOpenModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -14,6 +14,13 @@ export function RiderTable() {
   const filterData = data.filter((item) => {
     if (item.role == "Rider") {
       return item;
+    }
+  });
+
+  const searchData = filterData.filter((user) => {
+    const fullName = user.fullName.toLocaleLowerCase();
+    if (fullName.includes(search.toLocaleLowerCase())) {
+      return user;
     }
   });
 
@@ -52,7 +59,7 @@ export function RiderTable() {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {filterData?.map((user) => {
+          {searchData?.map((user) => {
             const firebasDate = user.createdAt.toDate();
             const date = moment(firebasDate).format("LLL");
             return (
