@@ -4,12 +4,19 @@ import { Button, Table } from "flowbite-react";
 import useCrudUsers from "../hooks/useCrudUsers";
 import moment from "moment";
 
-export function UserTable() {
+export function UserTable({ search }) {
   const { data, deleteUser } = useCrudUsers();
 
   const filterData = data.filter((item) => {
     if (item.role !== "Rider") {
       return item;
+    }
+  });
+
+  const searchData = filterData.filter((user) => {
+    const fullName = (user.firstName + " " + user.lastName).toLocaleLowerCase();
+    if (fullName.includes(search.toLocaleLowerCase())) {
+      return user;
     }
   });
 
@@ -30,7 +37,7 @@ export function UserTable() {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {filterData?.map((user) => {
+          {searchData?.map((user) => {
             const firebasDate = user.createdAt.toDate();
             const date = moment(firebasDate).format("LLL");
             return (
