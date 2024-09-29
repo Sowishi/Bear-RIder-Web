@@ -7,6 +7,7 @@ import useCrudTransactions from "../hooks/useCrudTransaction";
 import { HiTrash } from "react-icons/hi";
 import { useState } from "react";
 import { ConfirmModal } from "./confirmModal";
+import { toast } from "react-toastify";
 
 export function TransactionTable({ search }) {
   const { data, deleteTransaction } = useCrudTransactions();
@@ -51,12 +52,14 @@ export function TransactionTable({ search }) {
       return "info";
     }
   };
+
   return (
     <div className="overflow-x-auto shadow-xl">
       <ConfirmModal
         onSubmit={() => {
           deleteTransaction(selected.id);
           setDeleteModal(false);
+          toast.success("Successfull Deleted Transaction.");
         }}
         openModal={deleteModal}
         handleClose={() => setDeleteModal(false)}
