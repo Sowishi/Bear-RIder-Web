@@ -13,12 +13,14 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { FaMotorcycle } from "react-icons/fa";
 import { FaPesoSign } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AdminLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
 
   const navigation = useNavigate();
+
+  const path = window.location.pathname;
 
   return (
     <>
@@ -43,7 +45,7 @@ const AdminLayout = ({ children }) => {
               onClick={() => {
                 navigation("/admin-dashboard");
               }}
-              color="gray"
+              color={path == "/admin-dashboard" ? "warning" : "gray"}
             >
               <MdSpaceDashboard className="mr-3 h-4 w-4" />
               Dashboard
@@ -52,7 +54,7 @@ const AdminLayout = ({ children }) => {
               onClick={() => {
                 navigation("/admin-user");
               }}
-              color="gray"
+              color={path == "/admin-user" ? "warning" : "gray"}
             >
               <FaUsers className="mr-3 h-4 w-4" />
               User Management
@@ -61,7 +63,7 @@ const AdminLayout = ({ children }) => {
               onClick={() => {
                 navigation("/admin-rider");
               }}
-              color="gray"
+              color={path == "/admin-rider" ? "warning" : "gray"}
             >
               <FaMotorcycle className="mr-3 h-4 w-4" />
               Rider Management
@@ -70,7 +72,7 @@ const AdminLayout = ({ children }) => {
               onClick={() => {
                 navigation("/admin-transaction");
               }}
-              color="gray"
+              color={path == "/admin-transaction" ? "warning" : "gray"}
             >
               <FaPesoSign className="mr-3 h-4 w-4" />
               Transactions
