@@ -4,9 +4,15 @@ import { Button, Table } from "flowbite-react";
 import useCrudUsers from "../hooks/useCrudUsers";
 import moment from "moment";
 import { HiTrash } from "react-icons/hi";
+import { useState } from "react";
+import { ConfirmModal } from "./confirmModal";
+import { toast } from "react-toastify";
 
 export function UserTable({ search }) {
   const { data, deleteUser } = useCrudUsers();
+
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [selected, setSelected] = useState();
 
   const filterData = data.filter((item) => {
     if (item.role !== "Rider") {
@@ -23,6 +29,15 @@ export function UserTable({ search }) {
 
   return (
     <div className="overflow-x-auto shadow-xl">
+      <ConfirmModal
+        onSubmit={() => {
+          deleteUser(selected.id);
+          toast.success("Successfully Deleted User.");
+          setDeleteModal(false);
+        }}
+        openModal={deleteModal}
+        handleClose={() => setDeleteModal(false)}
+      />
       <Table striped>
         <Table.Head>
           <Table.HeadCell>Profile Picture</Table.HeadCell>
@@ -57,7 +72,10 @@ export function UserTable({ search }) {
                 </Table.Cell>{" "}
                 <Table.Cell className="text-lg">
                   <Button
-                    onClick={() => deleteUser(user.id)}
+                    onClick={() => {
+                      setDeleteModal(true);
+                      setSelected(user);
+                    }}
                     className="bg-red-500"
                   >
                     Delete

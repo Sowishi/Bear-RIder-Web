@@ -8,7 +8,7 @@ import { BearDrawer } from "../components/bearDrawer";
 import { useState } from "react";
 import logo from "../assets/LOGO 1 (1).png";
 import { FooterComponent } from "../components/footer";
-import { Button } from "flowbite-react";
+import { Badge, Button } from "flowbite-react";
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { FaMotorcycle } from "react-icons/fa";
@@ -35,8 +35,14 @@ const AdminLayout = ({ children }) => {
             color="black"
             size={30}
           />
-          <div className="wrapper">
-            <h1 className="font-bold text-2xl">Admin Dashboard</h1>
+          <div className="wrapper flex items-center justify-center">
+            <h1 className="font-bold text-2xl">
+              Bear Rider Express Admin Dashboard
+            </h1>
+            <Badge color={"success"} size={"lg"} className="ml-3">
+              {" "}
+              Online
+            </Badge>
           </div>
         </div>
         <div className="flex justify-center items-center pt-10">

@@ -7,11 +7,14 @@ import BearModal from "./bearModal";
 import { useState } from "react";
 import { HiEye, HiTrash } from "react-icons/hi";
 import { HiBan } from "react-icons/hi";
+import { ConfirmModal } from "./confirmModal";
+import { toast } from "react-toastify";
 
 export function RiderTable({ search }) {
   const { data, acceptRider, deleteUser, rejectRider } = useCrudUsers();
   const [openModal, setOpenModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const filterData = data.filter((item) => {
     if (item.role == "Rider") {
@@ -49,6 +52,16 @@ export function RiderTable({ search }) {
           handleClose={() => setOpenModal(false)}
         />
       )}
+
+      <ConfirmModal
+        onSubmit={() => {
+          deleteUser(selectedUser.id);
+          toast.success("Successfully Deleted User.");
+          setDeleteModal(false);
+        }}
+        openModal={deleteModal}
+        handleClose={() => setDeleteModal(false)}
+      />
       <Table striped>
         <Table.Head>
           <Table.HeadCell>Profile Picture</Table.HeadCell>
@@ -86,7 +99,10 @@ export function RiderTable({ search }) {
                 </Table.Cell>{" "}
                 <Table.Cell className="text-lg flex items-center justify-start">
                   <Button
-                    onClick={() => deleteUser(user.id)}
+                    onClick={() => {
+                      setDeleteModal(true);
+                      setSelectedUser(user);
+                    }}
                     className="bg-red-500"
                   >
                     Delete
