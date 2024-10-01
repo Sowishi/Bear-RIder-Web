@@ -62,9 +62,9 @@ const AdminDashboard = () => {
           <div className="basis-4/12 flex items-center justify-center">
             <Card href="#" className="max-w-sm">
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center ">
-                Total User Count <FaUsers className="ml-3" />{" "}
+                Total Users Count <FaUsers className="ml-3" />{" "}
                 <Badge className="ml-3" size={"2xl"}>
-                  22
+                  {data.length}
                 </Badge>
               </h5>
 

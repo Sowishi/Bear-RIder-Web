@@ -29,7 +29,10 @@ export default function BearModal({
                 src={user.selfieUrl}
               />{" "}
               <div className="div">
-                <h1 className="text-3xl font-bold mt-5">{user.fullName}</h1>
+                <h1 className="text-3xl font-bold mt-5">
+                  {" "}
+                  {user?.firstName + " " + user?.lastName}
+                </h1>
               </div>
               <ListGroup className="w-full mt-5">
                 <ListGroup.Item disabled>{user.email}</ListGroup.Item>{" "}

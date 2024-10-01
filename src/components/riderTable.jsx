@@ -23,7 +23,7 @@ export function RiderTable({ search }) {
   });
 
   const searchData = filterData.filter((user) => {
-    const fullName = user.fullName.toLocaleLowerCase();
+    const fullName = (user.firstName + " " + user.lastName).toLocaleLowerCase();
     if (fullName.includes(search.toLocaleLowerCase())) {
       return user;
     }
@@ -77,7 +77,8 @@ export function RiderTable({ search }) {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {searchData?.map((user) => {
+          {filterData?.map((user) => {
+            console.log(user);
             const firebasDate = user.createdAt.toDate();
             const date = moment(firebasDate).format("LLL");
             return (
@@ -85,16 +86,18 @@ export function RiderTable({ search }) {
                 <Table.Cell>
                   <img
                     style={{ borderRadius: "100%", width: 50, height: 50 }}
-                    src={user.selfieUrl}
+                    src={user?.selfieUrl}
                   />
                 </Table.Cell>
-                <Table.Cell className="text-lg">{user.fullName}</Table.Cell>
-                <Table.Cell className="text-lg">{user.email}</Table.Cell>{" "}
-                <Table.Cell className="text-lg">{user.phoneNumber}</Table.Cell>{" "}
+                <Table.Cell className="text-lg">
+                  {user?.firstName + " " + user?.lastName}
+                </Table.Cell>
+                <Table.Cell className="text-lg">{user?.email}</Table.Cell>{" "}
+                <Table.Cell className="text-lg">{user?.phoneNumber}</Table.Cell>{" "}
                 <Table.Cell className="text-lg">{date}</Table.Cell>{" "}
                 <Table.Cell className="text-lg">
-                  <Badge color={getStatusColor(user.riderStatus)}>
-                    {user.riderStatus}
+                  <Badge color={getStatusColor(user?.riderStatus)}>
+                    {user?.riderStatus}
                   </Badge>
                 </Table.Cell>{" "}
                 <Table.Cell className="text-lg flex items-center justify-start">
