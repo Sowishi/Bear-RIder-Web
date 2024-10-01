@@ -20,19 +20,6 @@ export function TransactionTable({ search }) {
     }
   });
 
-  const searchData = filterData.filter((user) => {
-    const fullNameRider = user.rider?.fullName.toLocaleLowerCase();
-    const fullNameUser = (
-      user.currentUser.firstName +
-      " " +
-      user.currentUser.lastName
-    ).toLocaleLowerCase();
-
-    if (fullNameUser.includes(search.toLocaleLowerCase())) {
-      return user;
-    }
-  });
-
   const convertWord = (text) => {
     if (text == "Pahatod") {
       return "Transportation";
@@ -81,7 +68,7 @@ export function TransactionTable({ search }) {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {searchData?.map((item) => {
+          {filterData?.map((item) => {
             const firebasDate = item.createdAt.toDate();
             const date = moment(firebasDate).format("LLL");
             const { currentUser } = item;
@@ -112,7 +99,7 @@ export function TransactionTable({ search }) {
                         src={rider?.selfieUrl}
                         alt=""
                       />
-                      {rider?.fullName}
+                      {rider?.firstName + " " + rider?.lastName}
                     </div>
                   )}
                   {!rider && "No Rider Yet"}
