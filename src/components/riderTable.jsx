@@ -77,7 +77,7 @@ export function RiderTable({ search }) {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {filterData?.map((user) => {
+          {searchData?.map((user) => {
             console.log(user);
             const firebasDate = user.createdAt.toDate();
             const date = moment(firebasDate).format("LLL");
