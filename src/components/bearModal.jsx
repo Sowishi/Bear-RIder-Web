@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, ListGroup, Modal } from "flowbite-react";
+import { Badge, Button, ListGroup, Modal } from "flowbite-react";
 import moment from "moment";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ export default function BearModal({
   return (
     <>
       {user && (
-        <Modal size={"2xl"} show={openModal} onClose={handleClose}>
+        <Modal size={"5xl"} show={openModal} onClose={handleClose}>
           <Modal.Header>Rider Information</Modal.Header>
           <Modal.Body>
             <div className="container mx-auto flex items-center justify-center flex-col">
@@ -42,14 +42,85 @@ export default function BearModal({
               </ListGroup>
               <div className="w-full flex justify-center items-center flex-col my-5">
                 <div className="w-full">
-                  <h1 className="font-bold text-3xl text-left ">Documents</h1>
+                  <h1 className="font-bold text-3xl text-left ">
+                    Driver's License
+                  </h1>
                 </div>
-                <a href={user.licenseUrl} target="_blank">
-                  <img
-                    style={{ width: 200, height: 200 }}
-                    src={user.licenseUrl}
-                  />
-                </a>
+                <div className="flex w-full my-10">
+                  <div className="basis-6/12 flex justify-center items-center">
+                    <a href={user.frontLicenseUrl} target="_blank">
+                      <Badge color={"info"} className="mb-3 py-2 w-6/12">
+                        Front License
+                      </Badge>
+                      <img
+                        style={{ width: 350, height: 350, borderRadius: 10 }}
+                        src={user.frontLicenseUrl}
+                      />
+                    </a>
+                  </div>
+                  <div className="basis-6/12 flex justify-center items-center">
+                    <a href={user.backLicenseUrl} target="_blank">
+                      <Badge color={"info"} className="mb-3 py-2 w-6/12">
+                        Back License
+                      </Badge>{" "}
+                      <img
+                        style={{ width: 350, height: 350, borderRadius: 10 }}
+                        src={user.backLicenseUrl}
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full flex justify-center items-center flex-col my-5">
+                <div className="w-full">
+                  <h1 className="font-bold text-3xl text-left ">
+                    Vehicle Documents
+                  </h1>
+                </div>
+                <div className="flex w-full my-10">
+                  <div className="basis-6/12 flex justify-center items-center">
+                    <a href={user.ORUrl} target="_blank">
+                      <Badge color={"info"} className="mb-3 py-2 w-6/12">
+                        Official Receipt
+                      </Badge>{" "}
+                      <img
+                        style={{ width: 350, height: 350, borderRadius: 10 }}
+                        src={user.ORUrl}
+                      />
+                    </a>
+                  </div>
+                  <div className="basis-6/12 flex justify-center items-center">
+                    <a href={user.CRUrl} target="_blank">
+                      <Badge color={"info"} className="mb-3 py-2 w-6/12">
+                        Certificate of Registration
+                      </Badge>{" "}
+                      <img
+                        style={{ width: 350, height: 350, borderRadius: 10 }}
+                        src={user.CRUrl}
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full flex justify-center items-center flex-col my-5">
+                <div className="w-full">
+                  <h1 className="font-bold text-3xl text-left ">
+                    Government Clearance
+                  </h1>
+                </div>
+                <div className="flex w-full my-10">
+                  <div className="basis-6/12 flex justify-center items-center">
+                    <a href={user.ORUrl} target="_blank">
+                      <Badge color={"info"} className="mb-3 py-2 w-6/12">
+                        Clearance
+                      </Badge>{" "}
+                      <img
+                        style={{ width: 350, height: 350, borderRadius: 10 }}
+                        src={user.clearanceUrl}
+                      />
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </Modal.Body>
