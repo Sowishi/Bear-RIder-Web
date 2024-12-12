@@ -9,6 +9,7 @@ const ViewUser = () => {
   const { getUser, updateUser } = useCrudUsers();
   const [user, setUser] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [actionType, setActionType] = useState(""); // To track block or unblock action
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -17,11 +18,14 @@ const ViewUser = () => {
     fetchUser();
   }, [id, getUser]);
 
-  const handleBlockUser = async () => {
+  const handleUserAction = async () => {
     if (user) {
-      await updateUser(id, { status: "Blocked" });
-      setUser((prev) => ({ ...prev, status: "Blocked" }));
-      alert("User has been blocked.");
+      const updatedStatus = actionType === "block" ? "Blocked" : "Active";
+      await updateUser(id, { status: updatedStatus });
+      setUser((prev) => ({ ...prev, status: updatedStatus }));
+      alert(
+        `User has been ${actionType === "block" ? "blocked" : "unblocked"}.`
+      );
       setIsModalOpen(false);
     }
   };
@@ -92,6 +96,10 @@ const ViewUser = () => {
                 </td>
               </tr>
               <tr>
+                <td className="px-4 py-2 border font-medium">Cancel Count</td>
+                <td className="px-4 py-2 border">{user.cancelCount || 0}</td>
+              </tr>
+              <tr>
                 <td className="px-4 py-2 border font-medium">Status</td>
                 <td className="px-4 py-2 border">{user.status || "Active"}</td>
               </tr>
@@ -102,24 +110,50 @@ const ViewUser = () => {
             </tbody>
           </table>
           <div className="mt-6 text-right">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600"
-            >
-              Block User
-            </button>
+            {user.status === "Active" ? (
+              <button
+                onClick={() => {
+                  setActionType("block");
+                  setIsModalOpen(true);
+                }}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600"
+              >
+                Block User
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setActionType("unblock");
+                  setIsModalOpen(true);
+                }}
+                className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
+              >
+                Unblock User
+              </button>
+            )}
           </div>
         </div>
 
         <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <Modal.Header>Confirm Block User</Modal.Header>
+          <Modal.Header>
+            {actionType === "block"
+              ? "Confirm Block User"
+              : "Confirm Unblock User"}
+          </Modal.Header>
           <Modal.Body>
-            <p>Are you sure you want to block this user?</p>
+            <p>
+              Are you sure you want to{" "}
+              {actionType === "block" ? "block" : "unblock"} this user?
+            </p>
           </Modal.Body>
           <Modal.Footer>
             <button
-              onClick={handleBlockUser}
-              className="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600"
+              onClick={handleUserAction}
+              className={`${
+                actionType === "block" ? "bg-red-500" : "bg-green-500"
+              } text-white px-4 py-2 rounded-lg shadow hover:${
+                actionType === "block" ? "bg-red-600" : "bg-green-600"
+              }`}
             >
               Confirm
             </button>

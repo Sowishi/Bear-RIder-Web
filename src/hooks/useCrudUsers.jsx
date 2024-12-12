@@ -84,6 +84,16 @@ const useCrudUsers = () => {
     }
   }, []);
 
+  const updateUser = useCallback(async (id, forms) => {
+    try {
+      const docRef = doc(db, "users", id);
+      await updateDoc(docRef, forms);
+    } catch (err) {
+      console.error("Error updating user:", err);
+      setError(err.message);
+    }
+  }, []);
+
   return {
     data,
     loading,
@@ -92,6 +102,7 @@ const useCrudUsers = () => {
     rejectRider,
     deleteUser,
     getUser,
+    updateUser,
   };
 };
 
