@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Button, Table } from "flowbite-react";
+import { Badge, Button, Table, TextInput } from "flowbite-react";
 import useCrudUsers from "../hooks/useCrudUsers";
 import moment from "moment";
 import BearModal from "./bearModal";
@@ -9,13 +9,15 @@ import { HiEye, HiTrash } from "react-icons/hi";
 import { HiBan } from "react-icons/hi";
 import { ConfirmModal } from "./confirmModal";
 import { toast } from "react-toastify";
+import CustomModal from "./customModal";
 
 export function RiderTable({ search }) {
   const { data, acceptRider, deleteUser, rejectRider } = useCrudUsers();
   const [openModal, setOpenModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
-
+  const [rejectModal, setRejectModal] = useState(false);
+  const [reason, setReason] = useState("");
   const filterData = data.filter((item) => {
     if (item.role == "Rider") {
       return item;
@@ -52,6 +54,22 @@ export function RiderTable({ search }) {
           handleClose={() => setOpenModal(false)}
         />
       )}
+
+      <CustomModal
+        onConfirm={() => {
+          rejectRider(selectedUser.id, reason);
+        }}
+        title={"Reason of Rejection"}
+        isOpen={rejectModal}
+        onClose={() => {
+          setRejectModal(false);
+        }}
+      >
+        <TextInput
+          onChange={(e) => setReason(e.target.value)}
+          placeholder="Enter here the reason for rejection"
+        />
+      </CustomModal>
 
       <ConfirmModal
         onSubmit={() => {
@@ -115,7 +133,10 @@ export function RiderTable({ search }) {
                   <Button
                     color={"failure"}
                     className="ml-3"
-                    onClick={() => rejectRider(user.id)}
+                    onClick={() => {
+                      setSelectedUser(user);
+                      setRejectModal(true);
+                    }}
                   >
                     Reject
                     <HiBan className="ml-2 h-5 w-5" />

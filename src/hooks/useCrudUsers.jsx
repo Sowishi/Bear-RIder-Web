@@ -47,10 +47,12 @@ const useCrudUsers = () => {
     }
   }, []);
 
-  const rejectRider = useCallback(async (id) => {
+  const rejectRider = useCallback(async (id, reason) => {
     try {
       const docRef = doc(db, "users", id);
-      await updateDoc(docRef, { riderStatus: "Rejected" });
+      await updateDoc(docRef, {
+        riderStatus: { status: "Rejected", note: reason },
+      });
     } catch (err) {
       console.error("Error updating rider status:", err);
       setError(err.message);
