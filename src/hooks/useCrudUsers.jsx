@@ -51,7 +51,8 @@ const useCrudUsers = () => {
     try {
       const docRef = doc(db, "users", id);
       await updateDoc(docRef, {
-        riderStatus: { status: "Rejected", note: reason },
+        riderStatus: "Rejected",
+        rejectionReason: reason,
       });
     } catch (err) {
       console.error("Error updating rider status:", err);

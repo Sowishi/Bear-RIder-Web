@@ -58,6 +58,7 @@ export function RiderTable({ search }) {
       <CustomModal
         onConfirm={() => {
           rejectRider(selectedUser.id, reason);
+          setRejectModal(false);
         }}
         title={"Reason of Rejection"}
         isOpen={rejectModal}
