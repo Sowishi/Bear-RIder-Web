@@ -6,6 +6,8 @@ import AdminUser from "./pages/admin-user";
 import AdminRider from "./pages/admin-rider";
 import AdminTransaction from "./pages/admin-transcation";
 import AdminDashboard from "./pages/admin-dashboard";
+import AdminFare from "./pages/admin-fare";
+import ViewUser from "./pages/view-user";
 
 const App = () => {
   return (
@@ -14,9 +16,12 @@ const App = () => {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/admin-user" element={<AdminUser />} />
+      <Route path="/admin-user/:id" element={<ViewUser />} />
+
       <Route path="/admin-rider" element={<AdminRider />} />
       <Route path="/admin-transaction" element={<AdminTransaction />} />
       <Route path="/admin-dashboard" element={<AdminDashboard />} />
+      <Route path="/admin-fare" element={<AdminFare />} />
     </Routes>
   );
 };

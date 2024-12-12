@@ -76,6 +76,15 @@ const AdminLayout = ({ children }) => {
             </Button>
             <Button
               onClick={() => {
+                navigation("/admin-fare");
+              }}
+              color={path == "/admin-fare" ? "warning" : "gray"}
+            >
+              <FaMotorcycle className="mr-3 h-4 w-4" />
+              Fare Management
+            </Button>
+            <Button
+              onClick={() => {
                 navigation("/admin-transaction");
               }}
               color={path == "/admin-transaction" ? "warning" : "gray"}
