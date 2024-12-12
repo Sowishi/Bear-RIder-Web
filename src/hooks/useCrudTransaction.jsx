@@ -5,6 +5,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
@@ -30,7 +31,26 @@ const useCrudTransactions = () => {
     console.log("dlkj");
   };
 
-  return { data, deleteTransaction };
+  const getOwnTransaction = (id, setTransaction) => {
+    const colRef = collection(db, "transaction");
+
+    // Construct query to fetch transactions where `rider.id` matches the provided id
+    const q = query(colRef, where("rider.id", "==", id));
+
+    // Subscribe to real-time updates
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const transactions = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id, // Include document ID for reference
+      }));
+      setTransaction(transactions);
+    });
+
+    // Return unsubscribe function to allow cleanup
+    return unsubscribe;
+  };
+
+  return { data, deleteTransaction, getOwnTransaction };
 };
 
 export default useCrudTransactions;

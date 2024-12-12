@@ -3,6 +3,7 @@
 import { Badge, Button, ListGroup, Modal } from "flowbite-react";
 import moment from "moment";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function BearModal({
   openModal,
@@ -12,6 +13,7 @@ export default function BearModal({
 }) {
   const firebaseDate = user.createdAt.toDate();
   const date = moment(firebaseDate).format("LLL");
+  const navigation = useNavigate();
   return (
     <>
       {user && (
@@ -28,11 +30,19 @@ export default function BearModal({
                 }}
                 src={user.selfieUrl}
               />{" "}
-              <div className="div">
+              <div className="div flex flex-col items-center justify-center">
                 <h1 className="text-3xl font-bold mt-5">
                   {" "}
                   {user?.firstName + " " + user?.lastName}
                 </h1>
+                <Button
+                  onClick={() => {
+                    navigation(`/admin-rider/${user.id}`);
+                  }}
+                  className="my-5"
+                >
+                  View Transaction
+                </Button>
               </div>
               <ListGroup className="w-full mt-5">
                 <ListGroup.Item disabled>{user.email}</ListGroup.Item>{" "}

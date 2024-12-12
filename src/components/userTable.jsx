@@ -49,6 +49,8 @@ export function UserTable({ search }) {
           <Table.HeadCell>Email</Table.HeadCell>
           <Table.HeadCell>Phone Number</Table.HeadCell>
           <Table.HeadCell>Date Join</Table.HeadCell>
+          <Table.HeadCell>Status</Table.HeadCell>
+
           <Table.HeadCell>Role</Table.HeadCell>
           <Table.HeadCell>Action</Table.HeadCell>
 
@@ -71,6 +73,8 @@ export function UserTable({ search }) {
                 <Table.Cell className="text-lg">{user.email}</Table.Cell>
                 <Table.Cell className="text-lg">{user.phoneNumber}</Table.Cell>
                 <Table.Cell className="text-lg">{date}</Table.Cell>
+                <Table.Cell className="text-lg">{user.status}</Table.Cell>
+
                 <Table.Cell className="text-lg">
                   {user.role ? user.role : "Customer"}
                 </Table.Cell>

@@ -8,6 +8,7 @@ import AdminTransaction from "./pages/admin-transcation";
 import AdminDashboard from "./pages/admin-dashboard";
 import AdminFare from "./pages/admin-fare";
 import ViewUser from "./pages/view-user";
+import ViewRider from "./pages/viewRider";
 
 const App = () => {
   return (
@@ -19,6 +20,8 @@ const App = () => {
       <Route path="/admin-user/:id" element={<ViewUser />} />
 
       <Route path="/admin-rider" element={<AdminRider />} />
+      <Route path="/admin-rider/:id" element={<ViewRider />} />
+
       <Route path="/admin-transaction" element={<AdminTransaction />} />
       <Route path="/admin-dashboard" element={<AdminDashboard />} />
       <Route path="/admin-fare" element={<AdminFare />} />
