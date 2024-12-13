@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Button, Table, Toast } from "flowbite-react";
+import { Badge, Button, Table, Toast, Select } from "flowbite-react";
 import useCrudUsers from "../hooks/useCrudUsers";
 import moment from "moment";
 import useCrudTransactions from "../hooks/useCrudTransaction";
@@ -13,18 +13,25 @@ export function TransactionTable({ search }) {
   const { data, deleteTransaction } = useCrudTransactions();
   const [deleteModal, setDeleteModal] = useState(false);
   const [selected, setSelected] = useState();
+  const [paymentFilter, setPaymentFilter] = useState("All");
+
+  const handlePaymentFilterChange = (e) => {
+    setPaymentFilter(e.target.value);
+  };
 
   const filterData = data.filter((item) => {
     if (item.role !== "Rider") {
-      return item;
+      if (paymentFilter === "All" || item.paymentMethod === paymentFilter) {
+        return item;
+      }
     }
+    return false;
   });
 
   const convertWord = (text) => {
     if (text == "Pahatod") {
       return "Transportation";
     }
-
     if (text == "Padara") {
       return "Delivery";
     }
@@ -34,7 +41,6 @@ export function TransactionTable({ search }) {
     if (status == "Completed") {
       return "success";
     }
-
     if (status == "Accepted") {
       return "info";
     }
@@ -42,11 +48,28 @@ export function TransactionTable({ search }) {
 
   return (
     <div className="overflow-x-auto shadow-xl">
+      <div className="flex justify-between mb-4">
+        <label htmlFor="paymentFilter" className="text-lg">
+          Filter by Payment Method:
+        </label>
+        <Select
+          id="paymentFilter"
+          value={paymentFilter}
+          onChange={handlePaymentFilterChange}
+          className="w-1/4"
+        >
+          <option value="All">All</option>
+          <option value="Cash">Cash</option>
+          <option value="Bear Wallet">Bear Wallet</option>
+          <option value="Gcash">Gcash</option>
+        </Select>
+      </div>
+
       <ConfirmModal
         onSubmit={() => {
           deleteTransaction(selected.id);
           setDeleteModal(false);
-          toast.success("Successfull Deleted Transaction.");
+          toast.success("Successfully Deleted Transaction.");
         }}
         openModal={deleteModal}
         handleClose={() => setDeleteModal(false)}
@@ -60,25 +83,25 @@ export function TransactionTable({ search }) {
           <Table.HeadCell>Distance</Table.HeadCell>
           <Table.HeadCell>Date</Table.HeadCell>
           <Table.HeadCell>Total Price</Table.HeadCell>
+          <Table.HeadCell>Payment Method</Table.HeadCell>
           <Table.HeadCell>Status</Table.HeadCell>
           <Table.HeadCell>Action</Table.HeadCell>
-
-          <Table.HeadCell>
-            <span className="sr-only">Edit</span>
-          </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
           {filterData?.map((item) => {
-            const firebasDate = item.createdAt.toDate();
-            const date = moment(firebasDate).format("LLL");
+            const firebaseDate = item.createdAt.toDate();
+            const date = moment(firebaseDate).format("LLL");
             const { currentUser } = item;
             const { rider } = item;
 
             return (
-              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+              <Table.Row
+                key={item.id}
+                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+              >
                 <Table.Cell className="text-lg">
                   {convertWord(item.serviceType)}
-                </Table.Cell>{" "}
+                </Table.Cell>
                 <Table.Cell className="text-lg">
                   <div className="wrapper flex items-center justify-start">
                     <img
@@ -89,9 +112,9 @@ export function TransactionTable({ search }) {
                     />
                     {currentUser.firstName + " " + currentUser.lastName}
                   </div>
-                </Table.Cell>{" "}
+                </Table.Cell>
                 <Table.Cell className="text-lg">
-                  {rider && (
+                  {rider ? (
                     <div className="wrapper flex items-center justify-start">
                       <img
                         className="mr-3"
@@ -101,12 +124,16 @@ export function TransactionTable({ search }) {
                       />
                       {rider?.firstName + " " + rider?.lastName}
                     </div>
+                  ) : (
+                    "No Rider Yet"
                   )}
-                  {!rider && "No Rider Yet"}
                 </Table.Cell>
                 <Table.Cell className="text-lg">{item.distance} km</Table.Cell>
                 <Table.Cell className="text-lg">{date}</Table.Cell>
-                <Table.Cell className="text-lg"> ₱{item.totalPrice}</Table.Cell>
+                <Table.Cell className="text-lg">₱{item.totalPrice}</Table.Cell>
+                <Table.Cell className="text-lg">
+                  {item.paymentMethod}
+                </Table.Cell>
                 <Table.Cell className="text-lg">
                   <Badge color={getStatusColor(item.status)}>
                     {item.status ? item.status : "Pending"}
