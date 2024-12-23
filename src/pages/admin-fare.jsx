@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { RiderTable } from "../components/riderTable";
 import AdminLayout from "../layout/admin";
 import { TextInput, Button, Label } from "flowbite-react";
 import useCrudFare from "../hooks/useCrudFare";
@@ -53,59 +52,68 @@ const AdminFare = () => {
 
         {/* Fare Management Section */}
         <div className="fare-management bg-white rounded-lg shadow-lg p-6 mb-10">
-          <h2 className="font-bold text-2xl mb-6">Fare Management</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Base Fare Input */}
-            <div>
-              <Label htmlFor="baseFare" className="block mb-2">
-                Base Fare
-              </Label>
-              <div className="flex items-center">
-                <span className="mr-2 text-lg font-semibold">₱</span>
-                <TextInput
-                  id="baseFare"
-                  type="text"
-                  value={baseFare}
-                  onChange={handleInputChange(setBaseFare)}
-                  placeholder="Enter base fare"
-                />
-              </div>
-            </div>
+          <table className="min-w-full table-auto border-collapse border border-gray-300">
+            <thead>
+              <tr>
+                <th className="border border-gray-300 p-4 text-left">Field</th>
+                <th className="border border-gray-300 p-4 text-left">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Base Fare Input */}
+              <tr>
+                <td className="border border-gray-300 p-4">Base Fare</td>
+                <td className="border border-gray-300 p-4">
+                  <div className="flex items-center">
+                    <span className="mr-2 text-lg font-semibold">₱</span>
+                    <TextInput
+                      id="baseFare"
+                      type="text"
+                      value={baseFare}
+                      onChange={handleInputChange(setBaseFare)}
+                      placeholder="Enter base fare"
+                    />
+                  </div>
+                </td>
+              </tr>
 
-            {/* Charge per Kilometer Input */}
-            <div>
-              <Label htmlFor="chargePerKm" className="block mb-2">
-                Charge Per Kilometer
-              </Label>
-              <div className="flex items-center">
-                <span className="mr-2 text-lg font-semibold">₱</span>
-                <TextInput
-                  id="chargePerKm"
-                  type="text"
-                  value={chargePerKm}
-                  onChange={handleInputChange(setChargePerKm)}
-                  placeholder="Enter charge per kilometer"
-                />
-              </div>
-            </div>
+              {/* Charge per Kilometer Input */}
+              <tr>
+                <td className="border border-gray-300 p-4">
+                  Charge Per Kilometer
+                </td>
+                <td className="border border-gray-300 p-4">
+                  <div className="flex items-center">
+                    <span className="mr-2 text-lg font-semibold">₱</span>
+                    <TextInput
+                      id="chargePerKm"
+                      type="text"
+                      value={chargePerKm}
+                      onChange={handleInputChange(setChargePerKm)}
+                      placeholder="Enter charge per kilometer"
+                    />
+                  </div>
+                </td>
+              </tr>
 
-            {/* Percentage Input */}
-            <div>
-              <Label htmlFor="percentage" className="block mb-2">
-                Percentage Value
-              </Label>
-              <div className="flex items-center">
-                <span className="mr-2 text-lg font-semibold">%</span>
-                <TextInput
-                  id="percentage"
-                  type="text"
-                  value={percentage}
-                  onChange={handleInputChange(setPercentage)}
-                  placeholder="Enter percentage value"
-                />
-              </div>
-            </div>
-          </div>
+              {/* Percentage Input */}
+              <tr>
+                <td className="border border-gray-300 p-4">Percentage Value</td>
+                <td className="border border-gray-300 p-4">
+                  <div className="flex items-center">
+                    <span className="mr-2 text-lg font-semibold">%</span>
+                    <TextInput
+                      id="percentage"
+                      type="text"
+                      value={percentage}
+                      onChange={handleInputChange(setPercentage)}
+                      placeholder="Enter percentage value"
+                    />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <div className="mt-6 text-right">
             <Button
               onClick={handleUpdateFare}
