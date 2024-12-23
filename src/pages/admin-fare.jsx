@@ -5,16 +5,23 @@ import { TextInput, Button, Label } from "flowbite-react";
 import useCrudFare from "../hooks/useCrudFare";
 
 const AdminFare = () => {
-  const { data, updateFare } = useCrudFare();
+  const { data, updateFare, updateInspection, getInspection } = useCrudFare();
+  const [inspectionData, setInspectionData] = useState();
 
   const [baseFare, setBaseFare] = useState(0); // Default to 0 initially
   const [chargePerKm, setChargePerKm] = useState(0);
+  const [percentage, setPercentage] = useState(0); // New state for percentage input
 
   // Update state when `data` is fetched
   useEffect(() => {
+    getInspection(setInspectionData);
+
     if (data) {
       setBaseFare(data.baseFareValue || "Loading...");
       setChargePerKm(data.chargePerKmValue || "Loading...");
+    }
+    if (inspectionData) {
+      setPercentage(inspectionData?.value);
     }
   }, [data]);
 
@@ -29,8 +36,10 @@ const AdminFare = () => {
   const handleUpdateFare = () => {
     const baseFareValue = parseFloat(baseFare) || 0;
     const chargePerKmValue = parseFloat(chargePerKm) || 0;
+    const percentageValue = parseFloat(percentage) || 0;
 
-    updateFare({ baseFareValue, chargePerKmValue }); // Call the update API
+    updateFare({ baseFareValue, chargePerKmValue });
+    updateInspection(percentageValue);
     alert("Fare details updated successfully!");
   };
 
@@ -76,6 +85,23 @@ const AdminFare = () => {
                   value={chargePerKm}
                   onChange={handleInputChange(setChargePerKm)}
                   placeholder="Enter charge per kilometer"
+                />
+              </div>
+            </div>
+
+            {/* Percentage Input */}
+            <div>
+              <Label htmlFor="percentage" className="block mb-2">
+                Percentage Value
+              </Label>
+              <div className="flex items-center">
+                <span className="mr-2 text-lg font-semibold">%</span>
+                <TextInput
+                  id="percentage"
+                  type="text"
+                  value={percentage}
+                  onChange={handleInputChange(setPercentage)}
+                  placeholder="Enter percentage value"
                 />
               </div>
             </div>

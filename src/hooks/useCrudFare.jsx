@@ -14,6 +14,7 @@ import { db } from "../../firebase";
 const useCrudFare = () => {
   const [data, setData] = useState({});
   const docRef = doc(db, "fare", "fareData");
+  const inspectionRef = doc(db, "inspection", "inspectionData");
 
   useEffect(() => {
     onSnapshot(docRef, (docSnapshot) => {
@@ -29,7 +30,19 @@ const useCrudFare = () => {
     setDoc(docRef, forms);
   };
 
-  return { data, updateFare };
+  const updateInspection = (data) => {
+    setDoc(inspectionRef, { value: data });
+  };
+
+  const getInspection = (setInspection) => {
+    onSnapshot(inspectionRef, (docSnapshot) => {
+      if (docSnapshot.exists() && setInspection) {
+        setInspection(docSnapshot.data());
+      }
+    });
+  };
+
+  return { data, updateFare, updateInspection, getInspection };
 };
 
 export default useCrudFare;
